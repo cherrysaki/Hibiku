@@ -11,6 +11,7 @@ import CoreData
 struct ContentView: View {
     // タブの選択項目を保持する
     @State var selection = 1
+    @State private var showOnomatope = false
     
     var body: some View {
         TabView(selection: $selection) {
@@ -20,9 +21,11 @@ struct ContentView: View {
                 }
                 .tag(1)
             
-            OnomatopeView()   // Viewファイル②
+            // 真ん中のタブ：押すと遷移
+            Color.clear
                 .tabItem {
-                    Image(systemName:"plus.circle.fill")
+                    Image(systemName: "plus.circle.fill")
+                        .font(.system(size: 30))
                 }
                 .tag(2)
             
@@ -33,8 +36,18 @@ struct ContentView: View {
                 .tag(3)
             
         }
+        .onChange(of: selection) { newValue in
+            if newValue == 2 {
+                showOnomatope = true
+                selection = 1 // 戻す
+            }
+        }
+        .fullScreenCover(isPresented: $showOnomatope) {
+            OnomatopeView()
+        }
         .tint(Color(red: 254/255, green: 169/255, blue: 175/255))
-
+        
+        
     } // body
     
 }

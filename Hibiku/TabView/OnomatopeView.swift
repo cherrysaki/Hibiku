@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct OnomatopeView: View {
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         ZStack {
             NavigationStack{
@@ -15,10 +16,20 @@ struct OnomatopeView: View {
                 }
                 .navigationTitle("今の気持ちを選ぼう")
                 .navigationBarTitleDisplayMode(.inline)
+                .navigationBarItems(leading:
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.backward")
+                        .foregroundColor(.black) 
+                }
+                                    
+                )
+                
             }
-                    Text("Page2")
-                } 
-
+            Text("Page2")
+        }
+        
     }
 }
 
