@@ -14,6 +14,11 @@ struct OnomaSelectView: View {
     let pages = Array(0..<8)
     @State private var currentPage = 1
     
+//    @State private var selectedWord: String?
+//    @State private var selectedColor: UIColor?
+//    @State private var isNextActive = false
+    
+    
     var body: some View {
         
         let grouped = Dictionary(grouping: loader.onomatopoeiaList) { $0.category }
@@ -36,7 +41,6 @@ struct OnomaSelectView: View {
                                     .bold()
                                     .padding(.top, 40)
                                 BubbleCategoryView(items: items)
-                                
                                 Spacer()
                             }
                             .tag(index)
@@ -45,8 +49,20 @@ struct OnomaSelectView: View {
                         }
                     }
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                    
+                    Button(){
+//                        if selectedWord != nil {
+//                            isNextActive = true
+//                        }
+                    }label:{
+                        Image(systemName: "arrow.forward.circle.fill")
+                            .resizable() //画像サイズを変更可能にする
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(Color(hex: "FEA9AF"))
+                    }
+                    .frame(width: 70,height: 70)
+                    Spacer(minLength: 70)
                 }
+                
                 .edgesIgnoringSafeArea(.bottom)
             }
             .navigationTitle("今の気持ちを選ぼう")
@@ -80,16 +96,4 @@ struct OnomaSelectView: View {
     OnomaSelectView(loader: OnomaLoader())
 }
 
-struct BubbleCategoryView: UIViewControllerRepresentable {
-    let items: [Onomatopoeia]
 
-    func makeUIViewController(context: Context) -> BubbleViewController {
-        let vc = BubbleViewController()
-        vc.onomatopoeiaList = items
-        return vc
-    }
-
-    func updateUIViewController(_ uiViewController: BubbleViewController, context: Context) {
-        // 更新の必要があればここに書く
-    }
-}

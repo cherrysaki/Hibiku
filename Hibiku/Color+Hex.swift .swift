@@ -30,8 +30,19 @@ extension UIColor {
         let r = CGFloat((rgb >> 16) & 0xFF) / 255.0
         let g = CGFloat((rgb >> 8) & 0xFF) / 255.0
         let b = CGFloat(rgb & 0xFF) / 255.0
-        self.init(red: r, green: g, blue: b, alpha: 1)
+        self.init(red: r, green: g, blue: b, alpha: 0.8)
     }
+    
+    func slightlyVaried(by range: CGFloat = 0.05) -> UIColor {
+           var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+           if self.getRed(&r, green: &g, blue: &b, alpha: &a) {
+               let newR = min(max(r + CGFloat.random(in: -range...range), 0), 1)
+               let newG = min(max(g + CGFloat.random(in: -range...range), 0), 1)
+               let newB = min(max(b + CGFloat.random(in: -range...range), 0), 1)
+               return UIColor(red: newR, green: newG, blue: newB, alpha: a)
+           }
+           return self
+       }
 }
 
 

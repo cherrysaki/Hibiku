@@ -14,13 +14,12 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selection) {
-            CalendarView()   // Viewファイル①
+            CalendarView()
                 .tabItem {
                     Image(systemName: "calendar")
                 }
                 .tag(1)
             
-            // 真ん中のタブ：押すと遷移
             Color.clear
                 .tabItem {
                     Image(systemName: "plus.circle.fill")
@@ -28,7 +27,7 @@ struct ContentView: View {
                 }
                 .tag(2)
             
-            AnalysisView()  // Viewファイル③
+            AnalysisView()
                 .tabItem {
                     Image(systemName:"waveform.path")
                 }
@@ -47,7 +46,7 @@ struct ContentView: View {
         .tint(Color(hex: "FEA9AF"))
         
         
-    } // body
+    }
     
 }
 #Preview {

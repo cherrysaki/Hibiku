@@ -9,10 +9,18 @@ import Foundation
 import UIKit
 import SwiftUI
 
+//protocol BubbleSelectionDelegate: AnyObject {
+//    func didSelect(word: String?, color: UIColor?)
+//}
+
 class BubbleViewController: UIViewController {
-    var bubbles: [BubbleView] = []
-    var placedBubbles: [UIView] = []
+//    var delegate: BubbleSelectionDelegate?
+    
+    var placedBubbles: [BubbleView] = []
     var onomatopoeiaList: [Onomatopoeia] = []
+   
+    var selectedBubble: BubbleView? // ← 現在選択中のバブル
+    var selectedWord: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,20 +29,30 @@ class BubbleViewController: UIViewController {
     }
 
     func createAndPlaceBubbles(_ onomas: [Onomatopoeia]) {
-        let center = view.center
+        let center = CGPoint(x: view.bounds.midX, y: view.bounds.midY - 200)
         let maxAttempts = 1000
         placedBubbles = []
 
         for item in onomas {
-            let color = UIColor(hex: item.colorHex)
-            let bubble = BubbleView(word: item.word, color: color)
+            
+            let baseColor = UIColor(hex: item.colorHex)
+            let bubbleColor = baseColor.slightlyVaried(by: 0.04)
+            let bubble = BubbleView(word: item.word, color: bubbleColor)
+            
+            //タップ可能にする
+            bubble.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBubbleTap(_:))))
+
 
             var placed = false
             var attempts = 0
 
             while !placed && attempts < maxAttempts {
                 let angle = CGFloat.random(in: 0...(2 * .pi))
-                let distance = CGFloat.random(in: 40...120)
+                
+                let diameter = bubble.bounds.width
+                let maxDistance = min(view.bounds.width, view.bounds.height) / 2 - diameter / 2 - 20
+                let distance = CGFloat.random(in: 20...max(maxDistance, 20))
+
                 let x = center.x + cos(angle) * distance
                 let y = center.y + sin(angle) * distance
                 bubble.center = CGPoint(x: x, y: y)
@@ -48,10 +66,28 @@ class BubbleViewController: UIViewController {
         }
     }
 
+    @objc func handleBubbleTap(_ sender: UITapGestureRecognizer) {
+        guard let tappedBubble = sender.view as? BubbleView else { return }
+
+        if selectedBubble == tappedBubble {
+            // 同じバブルを再度タップ → 選択解除
+            tappedBubble.isSelected = false
+            selectedBubble = nil
+//            delegate?.didSelect(word: nil, color: nil)
+        } else {
+            // 前の選択を解除
+            selectedBubble?.isSelected = false
+            // 新しいバブルを選択
+            tappedBubble.isSelected = true
+            selectedBubble = tappedBubble
+//            delegate?.didSelect(word: tappedBubble.text, color: tappedBubble.backgroundColor)
+        }
+    }
+
     func isOverlapping(bubble: UIView) -> Bool {
         for existing in placedBubbles {
             let d = hypot(bubble.center.x - existing.center.x, bubble.center.y - existing.center.y)
-            if d < (bubble.bounds.width + existing.bounds.width) / 2 - 5 {
+            if d < (bubble.bounds.width + existing.bounds.width) / 2 - 10 {
                 return true
             }
         }
