@@ -1,0 +1,371 @@
+
+ [
+   {
+     "id": "6831e66e-0ec1-4f89-9fa6-151ecbcb833d",
+     "word": "どきどき",
+     "category": "期待",
+     "colorHex": "#F9D792"
+   },
+   {
+     "id": "4d0effe7-eec5-482a-9a1d-b117d4f0d500",
+     "word": "わくわく",
+     "category": "期待",
+     "colorHex": "#F9D792"
+   },
+   {
+     "id": "e4b8a9b9-067e-40bb-a771-5ddbaf68caea",
+     "word": "うきうき",
+     "category": "期待",
+     "colorHex": "#F9D792"
+   },
+   {
+     "id": "437ea518-3f4f-44b7-a6fa-e1233764d3ee",
+     "word": "るんるん",
+     "category": "期待",
+     "colorHex": "#F9D792"
+   },
+   {
+     "id": "28e7ae4b-f63d-4153-997b-fdf954083a68",
+     "word": "そわそわ",
+     "category": "期待",
+     "colorHex": "#F9D792"
+   },
+   {
+     "id": "bb261e4c-4297-4f49-8b79-631811b7b9b6",
+     "word": "うはうは",
+     "category": "期待",
+     "colorHex": "#F9D792"
+   },
+   {
+       "id": "353640b8-70ff-4671-86b8-8aa69f6fda0c",
+       "word": "ぞくぞく",
+       "category": "期待",
+       "colorHex": "#F9D792"
+     },//期待
+   {
+     "id": "1edccbed-213b-4017-ae0b-9a581851e60f",
+     "word": "すっきり",
+     "category": "喜び",
+     "colorHex": "#F5ED93"
+   },
+   {
+     "id": "88ec17ed-3236-47cf-8f91-dc5f6b328f95",
+     "word": "にやにや",
+     "category": "喜び",
+     "colorHex": "#F5ED93"
+   },
+   {
+     "id": "1c09ad96-25aa-41a0-9100-bcf03dc14a50",
+     "word": "でれでれ",
+     "category": "喜び",
+     "colorHex": "#F5ED93"
+   },
+   {
+     "id": "68b6066a-fb42-465a-bd56-a0c79b85c8dc",
+     "word": "うきうき",
+     "category": "喜び",
+     "colorHex": "#F5ED93"
+   },
+   {
+     "id": "2383e81d-9414-4a0f-b3d0-af957da8ae72",
+     "word": "じーん",
+     "category": "喜び",
+     "colorHex": "#F5ED93"
+   },
+   {
+     "id": "50b1bfdc-594f-47db-99bc-b238593625ef",
+     "word": "うっとり",
+     "category": "喜び",
+     "colorHex": "#F5ED93"
+   },//喜び
+   {
+     "id": "4e2022f5-1019-4579-a473-826365e073e8",
+     "word": "ほっと",
+     "category": "信頼",
+     "colorHex": "#C2E088"
+   },
+   {
+     "id": "2c15d075-6a35-4ddf-aac8-aa081420e504",
+     "word": "にこにこ",
+     "category": "信頼",
+     "colorHex": "#C2E088"
+   },
+   {
+     "id": "a89b4444-d36c-467a-a664-3e751de1a704",
+     "word": "ほっこり",
+     "category": "信頼",
+     "colorHex": "#C2E088"
+   },
+   {
+     "id": "da90e24f-5158-4d7e-b458-90625895260e",
+     "word": "ほのぼの",
+     "category": "信頼",
+     "colorHex": "#C2E088"
+   },
+   {
+     "id": "be9a21a5-7d1c-487f-888f-fa5dbe9bd570",
+     "word": "まったり",
+     "category": "信頼",
+     "colorHex": "#C2E088"
+   },
+   {
+     "id": "f275b4ae-61e7-4d67-a85a-330267a78453",
+     "word": "のびのび",
+     "category": "信頼",
+     "colorHex": "#C2E088"
+   },
+   {
+     "id": "17d14570-efcf-43c0-8603-37030a6f85d5",
+     "word": "えへへ",
+     "category": "信頼",
+     "colorHex": "#C2E088"
+   },//信頼
+   {
+     "id": "5db88a11-f8c6-461a-adf8-6f5d318396bb",
+     "word": "どきっ",
+     "category": "驚き",
+     "colorHex": "#93C6FD"
+   },
+   {
+     "id": "eeb7f975-c8e7-47fc-951f-b82e749592da",
+     "word": "はっと",
+     "category": "驚き",
+     "colorHex": "#93C6FD"
+   },
+   {
+     "id": "9dc6f697-471b-45d3-80b3-02bf0a722db6",
+     "word": "きゅんっ",
+     "category": "驚き",
+     "colorHex": "#93C6FD"
+   },
+   {
+     "id": "0ebbdec2-b9f1-4fea-8945-c3a09b47694a",
+     "word": "あわわ",
+     "category": "驚き",
+     "colorHex": "#93C6FD"
+   },
+   {
+     "id": "f00f1aa7-e6ba-443a-ac0c-b95425e599b5",
+     "word": "ぎくり",
+     "category": "驚き",
+     "colorHex": "#93C6FD"
+   },
+   {
+     "id": "ddf96325-827e-4508-b490-d2abc13b73a2",
+     "word": "ぎょっと",
+     "category": "驚き",
+     "colorHex": "#93C6FD"
+   },
+   {
+     "id": "2d74069e-1610-4669-ac5e-fee03c6bfabe",
+     "word": "がーん",
+     "category": "驚き",
+     "colorHex": "#93C6FD"
+   },
+   {
+     "id": "93e40929-a532-41ed-9fac-558e8981b405",
+     "word": "ひやっ",
+     "category": "驚き",
+     "colorHex": "#93C6FD"
+   },//驚き
+   {
+     "id": "179d3fed-43ee-44f6-b605-08d47999e197",
+     "word": "がっかり",
+     "category": "嫌悪",
+     "colorHex": "#CF93C4"
+   },
+   {
+     "id": "f7857389-7af4-4885-bb86-42cae4679b00",
+     "word": "うんざり",
+     "category": "嫌悪",
+     "colorHex": "#CF93C4"
+   },
+   {
+     "id": "b12e6855-44dd-4381-8761-8970fff9e6aa",
+     "word": "ぴりぴり",
+     "category": "嫌悪",
+     "colorHex": "#CF93C4"
+   },
+   {
+     "id": "0bc2d193-9787-4bd3-a102-6ed3946b1111",
+     "word": "とげとげ",
+     "category": "嫌悪",
+     "colorHex": "#CF93C4"
+   },
+   {
+     "id": "c16b7805-5512-4d25-9c38-2074f7b87d0b",
+     "word": "きりきり",
+     "category": "嫌悪",
+     "colorHex": "#CF93C4"
+   },
+   {
+     "id": "e3f0fb08-29bf-497e-8271-47044a788e59",
+     "word": "ぞわぞわ",
+     "category": "嫌悪",
+     "colorHex": "#CF93C4"
+   },//嫌悪
+   {
+     "id": "ae64991f-8328-402b-bec4-4b65c441b06e",
+     "word": "ぷんぷん",
+     "category": "怒り",
+     "colorHex": "#F89891"
+   },
+   {
+     "id": "3895e10b-1848-4531-82f8-0e5ca6906ae9",
+     "word": "いらいら",
+     "category": "怒り",
+     "colorHex": "#F89891"
+   },
+   {
+     "id": "ffc162bc-5814-43c4-a56b-e86b52286888",
+     "word": "むすっ",
+     "category": "怒り",
+     "colorHex": "#F89891"
+   },
+   {
+     "id": "7b06fe14-fd55-4bb6-a33b-92d6f743da1b",
+     "word": "むしゃくしゃ",
+     "category": "怒り",
+     "colorHex": "#F89891"
+   },
+   {
+     "id": "045359c6-2522-4cb6-a841-9e5d4bf5ecf0",
+     "word": "わなわな",
+     "category": "怒り",
+     "colorHex": "#F89891"
+   },
+   {
+     "id": "f32a0711-c369-4ce5-964c-adf40b495430",
+     "word": "むかっ",
+     "category": "怒り",
+     "colorHex": "#F89891"
+   },
+   {
+     "id": "9694fb69-8321-41cb-8647-fadabe61cc79",
+     "word": "かちん",
+     "category": "怒り",
+     "colorHex": "#F89891"
+   },
+   {
+     "id": "9ede9cdb-2002-4d07-b905-630a5bb2490a",
+     "word": "とげとげ",
+     "category": "怒り",
+     "colorHex": "#F89891"
+   },
+   {
+     "id": "5e6dbf38-a98f-479f-9b99-6fb88b85025f",
+     "word": "ぐしゃぐしゃ",
+     "category": "怒り",
+     "colorHex": "#F89891"
+   },//怒り
+   {
+     "id": "d5dc2ecc-4e61-4d5e-ab91-32ad8e3afaa9",
+     "word": "はらはら",
+     "category": "恐れ",
+     "colorHex": "#88BEB9"
+   },
+   {
+     "id": "25757a3f-0afe-402d-9e7d-c7e8e6708c54",
+     "word": "もやもや",
+     "category": "恐れ",
+     "colorHex": "#88BEB9"
+   },
+   {
+     "id": "f622743f-e17d-406a-9dda-d8f4b362b5d2",
+     "word": "ぎくっ",
+     "category": "恐れ",
+     "colorHex": "#88BEB9"
+   },
+   {
+     "id": "2099c20f-6a13-41bc-afdb-3729305beaa1",
+     "word": "ぴくぴく",
+     "category": "恐れ",
+     "colorHex": "#88BEB9"
+   },
+   {
+     "id": "f032bc27-8267-4d04-a1cc-87f064d0d747",
+     "word": "そわそわ",
+     "category": "恐れ",
+     "colorHex": "#88BEB9"
+   },
+   {
+     "id": "ea71b02b-b7a4-4a93-9797-bf0a20f9d422",
+     "word": "おどおど",
+     "category": "恐れ",
+     "colorHex": "#88BEB9"
+   },
+   {
+     "id": "690479e1-c85b-4e18-8b23-d26f7d470d4e",
+     "word": "うじうじ",
+     "category": "恐れ",
+     "colorHex": "#88BEB9"
+   },
+   {
+     "id": "a5959996-03a5-4546-b63a-f54acd325d8c",
+     "word": "どきどき",
+     "category": "恐れ",
+     "colorHex": "#88BEB9"
+   },
+   {
+     "id": "e44075a1-4542-448d-a4d3-63fb60b3fc16",
+     "word": "くよくよ",
+     "category": "恐れ",
+     "colorHex": "#88BEB9"
+   },//恐れ
+   {
+     "id": "9f30e81a-2694-4eff-8255-90f4e07ba257",
+     "word": "しくしく",
+     "category": "悲しみ",
+     "colorHex": "#869BD3"
+   },
+   {
+     "id": "824c77e2-29a6-471e-8274-a3608b12f036",
+     "word": "しょんぼり",
+     "category": "悲しみ",
+     "colorHex": "#869BD3"
+   },
+   {
+     "id": "b34b6a54-9ac3-4d48-922b-a95e7269bfa8",
+     "word": "くよくよ",
+     "category": "悲しみ",
+     "colorHex": "#869BD3"
+   },
+   {
+     "id": "c4925000-cf60-479e-bc7c-ab4ecef36141",
+     "word": "しんみり",
+     "category": "悲しみ",
+     "colorHex": "#869BD3"
+   },
+   {
+     "id": "8b8ff839-6e6e-458b-9fd8-1603d6f8d028",
+     "word": "ずきずき",
+     "category": "悲しみ",
+     "colorHex": "#869BD3"
+   },
+   {
+     "id": "d394a60b-b196-4c67-ae90-8e4fa14a6345",
+     "word": "うわーん",
+     "category": "悲しみ",
+     "colorHex": "#869BD3"
+   },
+   {
+     "id": "c6ad3b3f-6dee-48df-a7e1-6a58d41bb1f1",
+     "word": "うるうる",
+     "category": "悲しみ",
+     "colorHex": "#869BD3"
+   },
+   {
+     "id": "eeb7b111-c22d-4df2-8e67-cb310a6a3f73",
+     "word": "ぐったり",
+     "category": "悲しみ",
+     "colorHex": "#869BD3"
+   },
+   {
+     "id": "ab88d7bc-d971-4e90-8264-408e02003f05",
+     "word": "ちくちく",
+     "category": "悲しみ",
+     "colorHex": "#869BD3"
+   }//悲しみ
+ ]
+
+

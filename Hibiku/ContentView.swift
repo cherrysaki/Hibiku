@@ -6,12 +6,11 @@
 //
 
 import SwiftUI
-import CoreData
 
 struct ContentView: View {
-    // タブの選択項目を保持する
     @State var selection = 1
     @State private var showOnomatope = false
+    @StateObject var loader = OnomaLoader()
     
     var body: some View {
         TabView(selection: $selection) {
@@ -43,9 +42,9 @@ struct ContentView: View {
             }
         }
         .fullScreenCover(isPresented: $showOnomatope) {
-            OnomatopeView()
+            OnomaSelectView(loader: loader)
         }
-        .tint(Color(red: 254/255, green: 169/255, blue: 175/255))
+        .tint(Color(hex: "FEA9AF"))
         
         
     } // body
