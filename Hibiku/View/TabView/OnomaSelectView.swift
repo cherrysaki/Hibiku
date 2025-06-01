@@ -28,20 +28,14 @@ struct OnomaSelectView: View {
                     TabView(selection: $currentPage) {
                         ForEach(0..<loopedCategories.count, id: \.self) { index in
                             let category = loopedCategories[index]
+                            let items = grouped[category] ?? []
                             
                             VStack(spacing: 20) {
                                 Text(category)
                                     .font(.title)
                                     .bold()
                                     .padding(.top, 40)
-                                
-                                WrapLayout(data: grouped[category] ?? []) { item in
-                                    Text(item.word)
-                                        .padding(10)
-                                        .background(Color(hex: item.colorHex))
-                                        .foregroundColor(.white)
-                                        .clipShape(Capsule())
-                                }
+                                BubbleCategoryView(items: items)
                                 
                                 Spacer()
                             }
@@ -84,4 +78,18 @@ struct OnomaSelectView: View {
 
 #Preview {
     OnomaSelectView(loader: OnomaLoader())
+}
+
+struct BubbleCategoryView: UIViewControllerRepresentable {
+    let items: [Onomatopoeia]
+
+    func makeUIViewController(context: Context) -> BubbleViewController {
+        let vc = BubbleViewController()
+        vc.onomatopoeiaList = items
+        return vc
+    }
+
+    func updateUIViewController(_ uiViewController: BubbleViewController, context: Context) {
+        // 更新の必要があればここに書く
+    }
 }
