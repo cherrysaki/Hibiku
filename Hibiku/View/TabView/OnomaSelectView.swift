@@ -10,14 +10,10 @@ import SwiftUI
 struct OnomaSelectView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var loader: OnomaLoader
-    
+
     let pages = Array(0..<8)
     @State private var currentPage = 1
-    
-//    @State private var selectedWord: String?
-//    @State private var selectedColor: UIColor?
-//    @State private var isNextActive = false
-    
+    @State private var isNextActive = false
     
     var body: some View {
         
@@ -34,24 +30,13 @@ struct OnomaSelectView: View {
                         ForEach(0..<loopedCategories.count, id: \.self) { index in
                             let category = loopedCategories[index]
                             let items = grouped[category] ?? []
-                            
-                            VStack(spacing: 20) {
-                                Text(category)
-                                    .font(.title)
-                                    .bold()
-                                    .padding(.top, 40)
-                                BubbleCategoryView(items: items)
-                                Spacer()
-                            }
-                            .tag(index)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .background(Color.white)
+                            pageView(for: index, category: category, items: items)
                         }
                     }
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                     Button(){
 //                        if selectedWord != nil {
-//                            isNextActive = true
+                            isNextActive = true
 //                        }
                     }label:{
                         Image(systemName: "arrow.forward.circle.fill")
@@ -62,7 +47,7 @@ struct OnomaSelectView: View {
                     .frame(width: 70,height: 70)
                     Spacer(minLength: 70)
                 }
-                
+                NavigationLink("", destination: OnomaFillinView(), isActive: $isNextActive)
                 .edgesIgnoringSafeArea(.bottom)
             }
             .navigationTitle("今の気持ちを選ぼう")
@@ -90,6 +75,21 @@ struct OnomaSelectView: View {
             }
         }
     }
+    
+    func pageView(for index: Int, category: String, items: [Onomatopoeia]) -> some View {
+        VStack(spacing: 20) {
+            Text(category)
+                .font(.title)
+                .bold()
+                .padding(.top, 40)
+            BubbleCategoryView(items: items)
+            Spacer()
+        }
+        .tag(index)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white)
+    }
+
 }
 
 #Preview {

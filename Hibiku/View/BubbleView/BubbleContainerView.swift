@@ -9,18 +9,12 @@ import Foundation
 import UIKit
 import SwiftUI
 
-//protocol BubbleSelectionDelegate: AnyObject {
-//    func didSelect(word: String?, color: UIColor?)
-//}
-
 class BubbleViewController: UIViewController {
-//    var delegate: BubbleSelectionDelegate?
     
     var placedBubbles: [BubbleView] = []
     var onomatopoeiaList: [Onomatopoeia] = []
    
     var selectedBubble: BubbleView? // ← 現在選択中のバブル
-    var selectedWord: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +28,6 @@ class BubbleViewController: UIViewController {
         placedBubbles = []
 
         for item in onomas {
-            
             let baseColor = UIColor(hex: item.colorHex)
             let bubbleColor = baseColor.slightlyVaried(by: 0.04)
             let bubble = BubbleView(word: item.word, color: bubbleColor)
@@ -80,7 +73,6 @@ class BubbleViewController: UIViewController {
             // 新しいバブルを選択
             tappedBubble.isSelected = true
             selectedBubble = tappedBubble
-//            delegate?.didSelect(word: tappedBubble.text, color: tappedBubble.backgroundColor)
         }
     }
 
