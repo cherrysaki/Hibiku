@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct Onomatopoeia: Identifiable, Codable {
-    let id: UUID
+    let id: String
     let word: String
     let category: String
     let colorHex: String

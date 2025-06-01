@@ -15,8 +15,10 @@ struct OnomaSelectView: View {
     @State private var currentPage = 1
     
     var body: some View {
+        
         let grouped = Dictionary(grouping: loader.onomatopoeiaList) { $0.category }
-        let loopedPages = [pages.last!] + pages + [pages.first!]
+        let categories = grouped.keys.sorted()
+        let loopedCategories = [categories.last! ] + categories + [categories.first!]
         
         NavigationStack {
             ZStack {
@@ -24,14 +26,32 @@ struct OnomaSelectView: View {
                 
                 VStack(spacing: 0) {
                     TabView(selection: $currentPage) {
-                        ForEach(0..<loopedPages.count, id: \.self) { index in
-                            Text("ページ: \(loopedPages[index])")
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .background(Color.white)
-                                .tag(index)
+                        ForEach(0..<loopedCategories.count, id: \.self) { index in
+                            let category = loopedCategories[index]
+                            
+                            VStack(spacing: 20) {
+                                Text(category)
+                                    .font(.title)
+                                    .bold()
+                                    .padding(.top, 40)
+                                
+                                WrapLayout(data: grouped[category] ?? []) { item in
+                                    Text(item.word)
+                                        .padding(10)
+                                        .background(Color(hex: item.colorHex))
+                                        .foregroundColor(.white)
+                                        .clipShape(Capsule())
+                                }
+                                
+                                Spacer()
+                            }
+                            .tag(index)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(Color.white)
                         }
                     }
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                    
                 }
                 .edgesIgnoringSafeArea(.bottom)
             }
@@ -51,9 +71,9 @@ struct OnomaSelectView: View {
         .onChange(of: currentPage) { newValue in
             if newValue == 0 {
                 DispatchQueue.main.async {
-                    currentPage = pages.count
+                    currentPage = categories.count
                 }
-            } else if newValue == loopedPages.count - 1 {
+            } else if newValue == loopedCategories.count - 1 {
                 DispatchQueue.main.async {
                     currentPage = 1
                 }

@@ -15,12 +15,19 @@ class OnomaLoader: ObservableObject {
     }
 
     func load() {
-        guard let url = Bundle.main.url(forResource: "onomatopoeia", withExtension: "json"),
-              let data = try? Data(contentsOf: url),
-              let decoded = try? JSONDecoder().decode([Onomatopoeia].self, from: data)
-        else {
+        guard let url = Bundle.main.url(forResource: "onomatopoeia", withExtension: "json") else {
+            print("ファイルが見つかりません")
             return
         }
-        self.onomatopoeiaList = decoded
+        do {
+            let data = try Data(contentsOf: url)
+            let decoded = try JSONDecoder().decode([Onomatopoeia].self, from: data)
+            self.onomatopoeiaList = decoded
+            print("デコード成功")
+        } catch {
+            print("デコード失敗: \(error)")
+        }
     }
+
+
 }
