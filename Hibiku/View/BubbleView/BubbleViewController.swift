@@ -9,14 +9,19 @@ import Foundation
 import UIKit
 import SwiftUI
 
+protocol BubbleViewControllerDelegate: AnyObject {
+    func didSelectBubble(word: String?, color: UIColor?)
+}
+
 class BubbleViewController: UIViewController {
     
+    weak var delegate: BubbleViewControllerDelegate?
+
     var placedBubbles: [BubbleView] = []
     var onomatopoeiaList: [Onomatopoeia] = []
-   
-    var selectedBubble: BubbleView? // ← 現在選択中のバブル
-
-    override func viewDidLoad() {
+    var selectedBubble: BubbleView? // 現在選択中のバブル
+    
+    public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         createAndPlaceBubbles(onomatopoeiaList)
@@ -59,6 +64,7 @@ class BubbleViewController: UIViewController {
         }
     }
 
+    //バブルをタップした時の選択状態を管理する
     @objc func handleBubbleTap(_ sender: UITapGestureRecognizer) {
         guard let tappedBubble = sender.view as? BubbleView else { return }
 
@@ -66,13 +72,19 @@ class BubbleViewController: UIViewController {
             // 同じバブルを再度タップ → 選択解除
             tappedBubble.isSelected = false
             selectedBubble = nil
-//            delegate?.didSelect(word: nil, color: nil)
+            delegate?.didSelectBubble(word: nil, color: nil)
         } else {
             // 前の選択を解除
             selectedBubble?.isSelected = false
             // 新しいバブルを選択
             tappedBubble.isSelected = true
             selectedBubble = tappedBubble
+            if let word = tappedBubble.text {
+                delegate?.didSelectBubble(word: word, color: tappedBubble.baseColor)
+            } else {
+                delegate?.didSelectBubble(word: nil, color: nil)
+            }
+
         }
     }
 

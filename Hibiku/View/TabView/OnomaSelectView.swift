@@ -10,6 +10,9 @@ import SwiftUI
 struct OnomaSelectView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var loader: OnomaLoader
+    
+    @State private var selectedWord: String? = nil
+    @State private var selectedColor: UIColor? = nil
 
     let pages = Array(0..<8)
     @State private var currentPage = 1
@@ -18,6 +21,7 @@ struct OnomaSelectView: View {
     var body: some View {
         
         let grouped = Dictionary(grouping: loader.onomatopoeiaList) { $0.category }
+        
         let categories = grouped.keys.sorted()
         let loopedCategories = [categories.last! ] + categories + [categories.first!]
         
@@ -34,20 +38,38 @@ struct OnomaSelectView: View {
                         }
                     }
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                    Button(){
-//                        if selectedWord != nil {
-                            isNextActive = true
-//                        }
-                    }label:{
+                    Button {
+                        isNextActive = true
+                    } label: {
                         Image(systemName: "arrow.forward.circle.fill")
-                            .resizable() //画像サイズを変更可能にする
+                            .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .foregroundColor(Color(hex: "FEA9AF"))
+                            .foregroundColor(
+                                (selectedWord != nil && selectedColor != nil)
+                                ? Color(hex: "FEA9AF")
+                                : Color(hex: "999999")
+                            )
                     }
-                    .frame(width: 70,height: 70)
+                    .frame(width: 70, height: 70)
+                    .disabled(selectedWord == nil || selectedColor == nil)
+
                     Spacer(minLength: 70)
                 }
-                NavigationLink("", destination: OnomaFillinView(), isActive: $isNextActive)
+                NavigationLink(
+                    destination: Group {
+                        if let word = selectedWord, let color = selectedColor {
+                            OnomaFillinView(word: word, color: color)
+                        } else {
+                            Text("値が未選択です")
+                        }
+                    },
+                    isActive: $isNextActive
+                ) {
+                    EmptyView()
+                }
+
+
+
                 .edgesIgnoringSafeArea(.bottom)
             }
             .navigationTitle("今の気持ちを選ぼう")
@@ -82,14 +104,13 @@ struct OnomaSelectView: View {
                 .font(.title)
                 .bold()
                 .padding(.top, 40)
-            BubbleCategoryView(items: items)
+            BubbleCategoryView(selectedWord: $selectedWord, selectedColor: $selectedColor,items: items)
             Spacer()
         }
         .tag(index)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.white)
     }
-
 }
 
 #Preview {
