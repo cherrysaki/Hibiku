@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
+    @Environment(\.modelContext) private var context
+    @Query private var diary: [Diary]
+    
     @State var selection = 1
     @State private var showOnomatope = false
     @StateObject var loader = OnomaLoader()

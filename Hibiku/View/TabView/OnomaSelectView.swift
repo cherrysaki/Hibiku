@@ -80,7 +80,7 @@ struct OnomaSelectView: View {
                         dismiss()
                     } label: {
                         Image(systemName: "chevron.backward")
-                            .foregroundColor(.black)
+                            .tint(.black)
                     }
                 }
             }

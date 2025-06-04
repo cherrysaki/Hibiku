@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct HibikuApp: App {
-
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .modelContainer(for: Diary.self)
         }
     }
 }
