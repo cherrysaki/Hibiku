@@ -24,8 +24,6 @@ struct OnomaFillinView: View {
 
     var body: some View {
         
-        let _ = print(word)
-        
         VStack{
             Spacer(minLength: 30)
             HStack{

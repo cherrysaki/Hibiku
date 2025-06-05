@@ -11,13 +11,15 @@ import SwiftUI
 
 @Model
 final class Diary{
-    let date: Date
+    var id: UUID
+    var date: Date
     var onomaWord: String
     var onomaColorHex: String
     var content: String
     var wavePath: [Float]
 
     init(onomaWord: String, onomaColor: UIColor, content: String, wavePath: [Float]) {
+        self.id = UUID()
         date = Date()
         self.onomaWord = onomaWord
         self.onomaColorHex = onomaColor.toHexString() 

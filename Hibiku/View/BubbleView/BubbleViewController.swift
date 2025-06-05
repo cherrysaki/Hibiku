@@ -6,21 +6,21 @@
 //
 
 import Foundation
-import UIKit
 import SwiftUI
+import UIKit
 
 protocol BubbleViewControllerDelegate: AnyObject {
     func didSelectBubble(word: String?, color: UIColor?)
 }
 
 class BubbleViewController: UIViewController {
-    
+
     weak var delegate: BubbleViewControllerDelegate?
 
     var placedBubbles: [BubbleView] = []
     var onomatopoeiaList: [Onomatopoeia] = []
-    var selectedBubble: BubbleView? // 現在選択中のバブル
-    
+    var selectedBubble: BubbleView?  // 現在選択中のバブル
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -35,20 +35,29 @@ class BubbleViewController: UIViewController {
         for item in onomas {
             let baseColor = UIColor(hex: item.colorHex)
             let bubbleColor = baseColor.slightlyVaried(by: 0.04)
-            let bubble = BubbleView(word: item.word, color: bubbleColor)
-            
+            let bubble = BubbleView(
+                word: item.word,
+                baseColor: baseColor,
+                displayColor: bubbleColor
+            )
             //タップ可能にする
-            bubble.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBubbleTap(_:))))
-
+            bubble.addGestureRecognizer(
+                UITapGestureRecognizer(
+                    target: self,
+                    action: #selector(handleBubbleTap(_:))
+                )
+            )
 
             var placed = false
             var attempts = 0
 
             while !placed && attempts < maxAttempts {
                 let angle = CGFloat.random(in: 0...(2 * .pi))
-                
+
                 let diameter = bubble.bounds.width
-                let maxDistance = min(view.bounds.width, view.bounds.height) / 2 - diameter / 2 - 20
+                let maxDistance =
+                    min(view.bounds.width, view.bounds.height) / 2 - diameter
+                    / 2 - 20
                 let distance = CGFloat.random(in: 20...max(maxDistance, 20))
 
                 let x = center.x + cos(angle) * distance
@@ -80,7 +89,11 @@ class BubbleViewController: UIViewController {
             tappedBubble.isSelected = true
             selectedBubble = tappedBubble
             if let word = tappedBubble.text {
-                delegate?.didSelectBubble(word: word, color: tappedBubble.baseColor)
+                delegate?.didSelectBubble(
+                    word: word,
+                    color: tappedBubble.baseColor
+                )
+                print(tappedBubble.baseColor.toHexString())
             } else {
                 delegate?.didSelectBubble(word: nil, color: nil)
             }
@@ -90,7 +103,10 @@ class BubbleViewController: UIViewController {
 
     func isOverlapping(bubble: UIView) -> Bool {
         for existing in placedBubbles {
-            let d = hypot(bubble.center.x - existing.center.x, bubble.center.y - existing.center.y)
+            let d = hypot(
+                bubble.center.x - existing.center.x,
+                bubble.center.y - existing.center.y
+            )
             if d < (bubble.bounds.width + existing.bounds.width) / 2 - 10 {
                 return true
             }
@@ -98,4 +114,3 @@ class BubbleViewController: UIViewController {
         return false
     }
 }
-

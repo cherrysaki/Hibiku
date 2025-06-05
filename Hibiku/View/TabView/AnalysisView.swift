@@ -10,14 +10,14 @@ import SwiftUI
 struct AnalysisView: View {
     var body: some View {
         ZStack {
-            NavigationStack{
+            NavigationStack {
                 VStack {
                 }
                 .navigationTitle("分析")
                 .navigationBarTitleDisplayMode(.inline)
             }
-                    Text("Page3")
-                } 
+            Text("Page3")
+        }
 
     }
 }
