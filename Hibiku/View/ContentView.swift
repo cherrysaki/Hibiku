@@ -45,7 +45,7 @@ struct ContentView: View {
             }
         }
         .fullScreenCover(isPresented: $showOnomatope) {
-            OnomaSelectView(loader: loader)
+            OnomaSelectView(selection: $selection, showOnomatope: $showOnomatope, loader: loader)
         }
         .tint(Color(hex: "FEA9AF"))
         
@@ -53,6 +53,4 @@ struct ContentView: View {
     }
     
 }
-#Preview {
-    
-}
+

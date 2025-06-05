@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct OnomaSelectView: View {
+    @Binding var selection: Int
+    
     @Environment(\.dismiss) var dismiss
+    @Binding var showOnomatope: Bool
     @ObservedObject var loader: OnomaLoader
     
     @State private var selectedWord: String? = nil
@@ -58,7 +61,7 @@ struct OnomaSelectView: View {
                 NavigationLink(
                     destination: Group {
                         if let word = selectedWord, let color = selectedColor {
-                            OnomaFillinView(word: word, color: color)
+                            OnomaFillinView(selection: $selection, showOnomatope: $showOnomatope, word: word, color: color)
                         } else {
                             Text("値が未選択です")
                         }
@@ -113,8 +116,5 @@ struct OnomaSelectView: View {
     }
 }
 
-#Preview {
-    OnomaSelectView(loader: OnomaLoader())
-}
 
 

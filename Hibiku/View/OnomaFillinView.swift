@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct OnomaFillinView: View {
+    
+    @Binding var selection: Int
+    @Binding var showOnomatope: Bool
     @Environment(\.dismiss) var dismiss
-    @State private var isNextActive = false
+    
+    @State var isNextActive = false
     @State var inputText: String = ""
 
     var word: String
@@ -39,7 +43,7 @@ struct OnomaFillinView: View {
             PlaceholderTextEditor(text: $inputText,placeholder: "どうして \(word)するのか書いてみよう")
                 .padding(20)
             
-            NavigationLink(destination: OnomaVoiceView(word: word, color: color, content: inputText), isActive: $isNextActive) {
+            NavigationLink(destination: OnomaVoiceView(showOnomatope: $showOnomatope,selection: $selection, word: word, color: color, content: inputText), isActive: $isNextActive) {
                 EmptyView()
             }
             .hidden()
@@ -77,10 +81,6 @@ struct OnomaFillinView: View {
         .tint(.black)
 
     }
-}
-
-#Preview {
-    OnomaFillinView(word: "わくわく", color: UIColor(hex: "F9D792"))
 }
 
 struct PlaceholderTextEditor: View {
