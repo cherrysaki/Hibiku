@@ -19,11 +19,11 @@ class BubbleViewController: UIViewController {
 
     var placedBubbles: [BubbleView] = []
     var onomatopoeiaList: [Onomatopoeia] = []
-    var selectedBubble: BubbleView?  // 現在選択中のバブル
+    var selectedBubble: BubbleView?
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(hex: "FFF9F9")
         createAndPlaceBubbles(onomatopoeiaList)
     }
 
@@ -101,6 +101,7 @@ class BubbleViewController: UIViewController {
         }
     }
 
+    //オノマトペの重なり判定
     func isOverlapping(bubble: UIView) -> Bool {
         for existing in placedBubbles {
             let d = hypot(

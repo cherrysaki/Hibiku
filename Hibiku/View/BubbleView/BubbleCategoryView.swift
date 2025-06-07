@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct BubbleCategoryView: UIViewControllerRepresentable {
+    
     @Binding var selectedWord: String?
     @Binding var selectedColor: UIColor?
+    
     let items: [Onomatopoeia]
     
     func makeCoordinator() -> Coordinator {

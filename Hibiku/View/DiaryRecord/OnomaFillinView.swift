@@ -9,11 +9,12 @@ import SwiftUI
 
 struct OnomaFillinView: View {
     
+    //画面遷移を管理する変数
     @Binding var selection: Int
     @Binding var showOnomatope: Bool
     @Environment(\.dismiss) var dismiss
-    
     @State var isNextActive = false
+    
     @State var inputText: String = ""
 
     var word: String
@@ -27,7 +28,6 @@ struct OnomaFillinView: View {
     }
 
     var body: some View {
-        
         VStack{
             Spacer(minLength: 30)
             HStack{
@@ -66,6 +66,9 @@ struct OnomaFillinView: View {
 
         }
         .navigationBarBackButtonHidden(true)
+        .navigationTitle(today)
+        .navigationBarTitleDisplayMode(.inline)
+        .tint(.black)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
@@ -76,9 +79,7 @@ struct OnomaFillinView: View {
                 }
             }
         }
-        .navigationTitle(today)
-        .navigationBarTitleDisplayMode(.inline)
-        .tint(.black)
+        .background(Color(hex: "FFFBFB"))
 
     }
 }

@@ -9,11 +9,11 @@ import Foundation
 
 class OnomaLoader: ObservableObject {
     @Published var onomatopoeiaList: [Onomatopoeia] = []
-
+    
     init() {
         load()
     }
-
+    
     func load() {
         guard let url = Bundle.main.url(forResource: "onomatopoeia", withExtension: "json") else {
             print("ファイルが見つかりません")
@@ -28,6 +28,6 @@ class OnomaLoader: ObservableObject {
             print("デコード失敗: \(error)")
         }
     }
-
-
+    
+    
 }

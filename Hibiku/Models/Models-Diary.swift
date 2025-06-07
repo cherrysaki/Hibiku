@@ -17,13 +17,13 @@ final class Diary{
     var onomaColorHex: String
     var content: String
     var wavePath: [Float]
-
+    
     init(onomaWord: String, onomaColor: UIColor, content: String, wavePath: [Float]) {
         self.id = UUID()
         date = Date()
         self.onomaWord = onomaWord
-        self.onomaColorHex = onomaColor.toHexString() 
+        self.onomaColorHex = onomaColor.toHexString()
         self.content = content
         self.wavePath = wavePath
-       }
+    }
 }

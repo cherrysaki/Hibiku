@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E49D213E2DF3C5850029DA87 /* SwiftUICalendar in Frameworks */ = {isa = PBXBuildFile; productRef = E49D213D2DF3C5850029DA87 /* SwiftUICalendar */; };
+		E49D21412DF3FECA0029DA87 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E49D21402DF3FECA0029DA87 /* SwiftData.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		E449E0B32DE93A6F002AB00F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +32,7 @@
 		E449E0A02DE93A6D002AB00F /* Hibiku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hibiku.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E449E0B22DE93A6F002AB00F /* HibikuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HibikuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E449E0BC2DE93A6F002AB00F /* HibikuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HibikuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E49D21402DF3FECA0029DA87 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +58,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E49D21412DF3FECA0029DA87 /* SwiftData.framework in Frameworks */,
+				E49D213E2DF3C5850029DA87 /* SwiftUICalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +86,7 @@
 				E449E0A22DE93A6D002AB00F /* Hibiku */,
 				E449E0B52DE93A6F002AB00F /* HibikuTests */,
 				E449E0BF2DE93A6F002AB00F /* HibikuUITests */,
+				E49D213F2DF3FECA0029DA87 /* Frameworks */,
 				E449E0A12DE93A6D002AB00F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +99,14 @@
 				E449E0BC2DE93A6F002AB00F /* HibikuUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		E49D213F2DF3FECA0029DA87 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E49D21402DF3FECA0029DA87 /* SwiftData.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +129,7 @@
 			);
 			name = Hibiku;
 			packageProductDependencies = (
+				E49D213D2DF3C5850029DA87 /* SwiftUICalendar */,
 			);
 			productName = Hibiku;
 			productReference = E449E0A02DE93A6D002AB00F /* Hibiku.app */;
@@ -195,6 +213,9 @@
 			);
 			mainGroup = E449E0972DE93A6D002AB00F;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E449E11E2DF3C4F4002AB00F /* XCRemoteSwiftPackageReference "SwiftUICalendar" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E449E0A12DE93A6D002AB00F /* Products */;
 			projectDirPath = "";
@@ -554,6 +575,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E449E11E2DF3C4F4002AB00F /* XCRemoteSwiftPackageReference "SwiftUICalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/GGJJack/SwiftUICalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.14;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E49D213D2DF3C5850029DA87 /* SwiftUICalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E449E11E2DF3C4F4002AB00F /* XCRemoteSwiftPackageReference "SwiftUICalendar" */;
+			productName = SwiftUICalendar;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E449E0982DE93A6D002AB00F /* Project object */;
 }

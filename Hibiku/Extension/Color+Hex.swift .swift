@@ -32,20 +32,28 @@ extension UIColor {
         let b = CGFloat(rgb & 0xFF) / 255.0
         self.init(red: r, green: g, blue: b, alpha: 1.0)
     }
-    
+
+    //オノマトペバブルの色をランダムに少しずつ変える関数
     func slightlyVaried(by range: CGFloat = 0.05) -> UIColor {
-        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
-           if self.getRed(&r, green: &g, blue: &b, alpha: &a) {
-               let newR = min(max(r + CGFloat.random(in: -range...range), 0), 1)
-               let newG = min(max(g + CGFloat.random(in: -range...range), 0), 1)
-               let newB = min(max(b + CGFloat.random(in: -range...range), 0), 1)
-               return UIColor(red: newR, green: newG, blue: newB, alpha: 0.8)
-           }
-           return self
-       }
-    
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+        if self.getRed(&r, green: &g, blue: &b, alpha: &a) {
+            let newR = min(max(r + CGFloat.random(in: -range...range), 0), 1)
+            let newG = min(max(g + CGFloat.random(in: -range...range), 0), 1)
+            let newB = min(max(b + CGFloat.random(in: -range...range), 0), 1)
+            return UIColor(red: newR, green: newG, blue: newB, alpha: 0.8)
+        }
+        return self
+    }
+
+    //UIColorをStringに変換する関数
     func toHexString() -> String {
-        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
         getRed(&r, green: &g, blue: &b, alpha: &a)
         return String(
             format: "#%02lX%02lX%02lX",
@@ -55,7 +63,3 @@ extension UIColor {
         )
     }
 }
-
-
-
-

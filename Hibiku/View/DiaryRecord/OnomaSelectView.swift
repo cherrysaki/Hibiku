@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct OnomaSelectView: View {
-    @Binding var selection: Int
     
-    @Environment(\.dismiss) var dismiss
-    @Binding var showOnomatope: Bool
+    //オノマトペを読み込む
     @ObservedObject var loader: OnomaLoader
+    
+    //画面遷移を管理する変数
+    @Binding var showOnomatope: Bool
+    @Binding var selection: Int
+    @Environment(\.dismiss) var dismiss
     
     @State private var selectedWord: String? = nil
     @State private var selectedColor: UIColor? = nil
@@ -30,7 +33,7 @@ struct OnomaSelectView: View {
         
         NavigationStack {
             ZStack {
-                Color.white.ignoresSafeArea()
+                Color(hex: "FFF9F9").ignoresSafeArea()
                 
                 VStack(spacing: 0) {
                     TabView(selection: $currentPage) {
@@ -112,8 +115,9 @@ struct OnomaSelectView: View {
         }
         .tag(index)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.white)
+        .background(Color(hex: "FFF9F9"))
     }
+    
 }
 
 

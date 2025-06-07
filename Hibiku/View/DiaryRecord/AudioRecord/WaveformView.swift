@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WaveformView: View {
+    
     @ObservedObject var audioManager: AudioRecorderManager
 
     var body: some View {

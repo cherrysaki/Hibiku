@@ -9,10 +9,12 @@ import AVFoundation
 import Combine
 
 class AudioRecorderManager: NSObject, ObservableObject {
-    private var recorder: AVAudioRecorder!
-    private var timer: Timer?
     
-    @Published var amplitudes: [Float] = []  // 波形データ
+    var recorder: AVAudioRecorder!
+    var timer: Timer?
+    
+    // 波形データを入れる配列
+    @Published var amplitudes: [Float] = []
 
     func startRecording() {
         do {

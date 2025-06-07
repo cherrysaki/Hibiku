@@ -18,7 +18,7 @@ struct AnalysisView: View {
             }
             Text("Page3")
         }
-
+        .background(Color(hex: "FFFBFB"))
     }
 }
 
