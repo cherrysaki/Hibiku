@@ -55,8 +55,8 @@ struct OnomaSelectView: View {
                                 ? Color(hex: "FEA9AF")
                                 : Color(hex: "999999")
                             )
+                            .modifier(BottomButtonStyle())
                     }
-                    .frame(width: 70, height: 70)
                     .disabled(selectedWord == nil || selectedColor == nil)
 
                     Spacer(minLength: 70)

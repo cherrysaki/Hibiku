@@ -14,7 +14,6 @@ struct OnomaCalendarView: View {
     @State private var selectedDate: YearMonthDay? = nil
     @State private var isShowingDiaryList = false
     
-    
     let diary: [Diary]
     
     var body: some View {
@@ -47,29 +46,18 @@ struct OnomaCalendarView: View {
                     
                     CalendarView(calendarController) { date in
                         GeometryReader { geometry in
-                            VStack(spacing: 10) {
-                                Text("\(date.day)")
-                                    .frame(alignment: .center)
-                                    .font(.system(size: 10, weight: .light, design: .default))
-                                    .opacity(date.isFocusYearMonth == true ? 1 : 0.3)
-                                
-                                if let color = colorFor(date: date) {
-                                    Button {
-                                        selectedDate = date
-                                        isShowingDiaryList = true
-                                    } label: {
-                                        Circle()
-                                            .fill(color)
-                                            .frame(width: 25, height: 25)
-                                    }
-                                    .buttonStyle(.plain)
-                                } else {
-                                    Spacer().frame(height: 25) // 丸がないときの高さ合わせ
+                            CalendarDateCellView(
+                                date: date,
+                                color: colorFor(date: date),
+                                onTap: {
+                                    selectedDate = date
+                                    isShowingDiaryList = true
                                 }
-                            }
+                            )
                             .frame(width: geometry.size.width, height: geometry.size.height)
                         }
                     }
+                    
                     .frame(height: 400)
                     
                 }
@@ -77,7 +65,7 @@ struct OnomaCalendarView: View {
                 .background(Color.white)
                 .cornerRadius(20)
                 .shadow(color: Color.gray.opacity(0.1), radius: 4, x: 0, y: 2)
-                .padding(.horizontal, 24)
+                .padding(.horizontal, 25)
                 
                 Spacer()
                 
@@ -97,38 +85,32 @@ struct OnomaCalendarView: View {
     
     func colorFor(date: YearMonthDay) -> Color? {
         guard let targetDate = date.date else { return nil }
-        // 同じ日付の日記を抽出
-        let entries = diary.filter {
-            Calendar.current.isDate($0.date, inSameDayAs: targetDate)
-        }
-        
-        guard !entries.isEmpty else { return nil }
-        
-        // RGB値の合計
-        var totalR: CGFloat = 0
-        var totalG: CGFloat = 0
-        var totalB: CGFloat = 0
-        var count: CGFloat = 0
-        
-        for entry in entries {
-            let uiColor = UIColor(hex: entry.onomaColorHex)
-            var r: CGFloat = 0
-            var g: CGFloat = 0
-            var b: CGFloat = 0
-            var a: CGFloat = 0
-            if uiColor.getRed(&r, green: &g, blue: &b, alpha: &a) {
-                totalR += r
-                totalG += g
-                totalB += b
-                count += 1
-            }
-        }
-        
-        guard count > 0 else { return nil }
-        
-        //同じ日に書いた複数日記のオノマトペの色の平均値を返すことにする
-        let avgColor = UIColor(red: totalR / count, green: totalG / count, blue: totalB / count, alpha: 1.0)
-        return Color(avgColor)
+        return diary.averageColor(for: targetDate)
     }
     
+}
+
+struct CalendarDateCellView: View {
+    let date: YearMonthDay
+    let color: Color?
+    let onTap: () -> Void
+    
+    var body: some View {
+        VStack(spacing: 10) {
+            Text("\(date.day)")
+                .font(.system(size: 10, weight: .light))
+                .opacity(date.isFocusYearMonth == true ? 1 : 0.3)
+            
+            if let color = color {
+                Button(action: onTap) {
+                    Circle()
+                        .fill(color)
+                        .frame(width: 25, height: 25)
+                }
+                .buttonStyle(.plain)
+            } else {
+                Spacer().frame(height: 25)
+            }
+        }
+    }
 }

@@ -8,100 +8,102 @@
 import SwiftUI
 
 struct OnomaFillinView: View {
-    
     //画面遷移を管理する変数
     @Binding var selection: Int
     @Binding var showOnomatope: Bool
     @Environment(\.dismiss) var dismiss
-    @State var isNextActive = false
     
-    @State var inputText: String = ""
+    @State private var isNextActive = false
+    @State private var inputText: String = ""
 
     var word: String
     var color: UIColor
+
     var today: String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ja_JP")
         formatter.dateStyle = .long
-        formatter.timeStyle = .none
         return formatter.string(from: Date())
     }
 
     var body: some View {
-        VStack{
-            Spacer(minLength: 30)
-            HStack{
-                Spacer(minLength: 25)
-                Circle()
-                    .foregroundColor(Color(color))
-                    .frame(width: 40,height: 40,alignment: .leading)
-                
-                Text(word)
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            PlaceholderTextEditor(text: $inputText,placeholder: "どうして \(word)するのか書いてみよう")
-                .padding(20)
-            
-            NavigationLink(destination: OnomaVoiceView(showOnomatope: $showOnomatope,selection: $selection, word: word, color: color, content: inputText), isActive: $isNextActive) {
-                EmptyView()
-            }
-            .hidden()
+        NavigationStack {
+            ZStack {
+                Color(hex: "FFFBFB").ignoresSafeArea()
 
-            Button {
-                if inputText != "" {
-                    isNextActive = true
+                VStack(spacing: 20) {
+                    HStack {
+                        Circle()
+                            .foregroundColor(Color(color))
+                            .frame(width: 40, height: 40)
+                        Text(word)
+                            .font(.system(size: 15))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .padding(.horizontal, 25)
+
+                    PlaceholderTextEditor(text: $inputText, placeholder: "どうして \(word) するのか書いてみよう")
+
+                    Button {
+                        if !inputText.isEmpty {
+                            isNextActive = true
+                        }
+                    } label: {
+                        Image(systemName: "arrow.forward.circle.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(inputText.isEmpty ? Color(hex: "999999") : Color(hex: "FEA9AF"))
+                            .modifier(BottomButtonStyle())
+                    }
+
+                    NavigationLink(
+                        destination: OnomaVoiceView(showOnomatope: $showOnomatope, selection: $selection, word: word, color: color, content: inputText),
+                        isActive: $isNextActive
+                    ) {
+                        EmptyView()
+                    }
                 }
-            } label: {
-                Image(systemName: "arrow.forward.circle.fill")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .foregroundColor(
-                        (inputText != "")
-                        ? Color(hex: "FEA9AF")
-                        : Color(hex: "999999")
-                    )
+                .padding(.top, 20)
             }
-            .frame(width: 70, height: 70)
-
-        }
-        .navigationBarBackButtonHidden(true)
-        .navigationTitle(today)
-        .navigationBarTitleDisplayMode(.inline)
-        .tint(.black)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.backward")
-                        .tint(.black)
+            .navigationBarBackButtonHidden(true)
+            .navigationTitle(today)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.backward")
+                            .tint(.black)
+                    }
                 }
             }
         }
-        .background(Color(hex: "FFFBFB"))
-
     }
 }
-
 struct PlaceholderTextEditor: View {
     @Binding var text: String
     let placeholder: String
 
     var body: some View {
         ZStack(alignment: .topLeading) {
+            TextEditor(text: $text)
+                .padding(.horizontal, 8)
+                .background(Color.clear)
+
             if text.isEmpty {
                 Text(placeholder)
                     .foregroundColor(Color(hex: "999999"))
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 12)
+                    .padding(.top, 12)
+                    .padding(.horizontal, 12)
+                    .opacity(0.85)
             }
-
-            TextEditor(text: $text)
-                .padding(4)
-                .background(Color.clear)
         }
-        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.2)))
+        .frame(height: 400)
+        .background(Color.white)
+        .cornerRadius(20)
+        .shadow(color: Color.gray.opacity(0.1), radius: 4, x: 0, y: 2)
+        .padding(.horizontal, 25)
     }
 }
 
