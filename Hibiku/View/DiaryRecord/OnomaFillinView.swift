@@ -28,8 +28,8 @@ struct OnomaFillinView: View {
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                Color(hex: "FFFBFB").ignoresSafeArea()
+//            ZStack {
+//                Color(hex: "FFFBFB").ignoresSafeArea()
 
                 VStack(spacing: 20) {
                     HStack {
@@ -56,7 +56,7 @@ struct OnomaFillinView: View {
                             .frame(width: 70, height: 70)
                     }
                     
-                    Spacer(minLength: 70)
+                    Spacer(minLength: 50)
 
                     NavigationLink(
                         destination: OnomaVoiceView(showOnomatope: $showOnomatope, selection: $selection, word: word, color: color, content: inputText),
@@ -66,7 +66,7 @@ struct OnomaFillinView: View {
                     }
                 }
                 .padding(.top, 20)
-            }
+//            }
             .navigationBarBackButtonHidden(true)
             .navigationTitle(today)
             .navigationBarTitleDisplayMode(.inline)

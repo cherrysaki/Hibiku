@@ -23,6 +23,10 @@ struct OnomaSelectView: View {
     let pages = Array(0..<8)
     @State private var currentPage = 1
     @State private var isNextActive = false
+    
+//    @State var index: Int = 0
+//    @State var category: String = ""
+//    @State var items: [Onomatopoeia] = []
 
     var body: some View {
 
@@ -49,6 +53,7 @@ struct OnomaSelectView: View {
                                 category: category,
                                 items: items
                             )
+                            let _ = print(currentPage, index)
                         }
                     }
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -62,7 +67,7 @@ struct OnomaSelectView: View {
                             .foregroundColor(
                                 (selectedWord != nil && selectedColor != nil)
                                     ? Color(hex: "FEA9AF")
-                                    : Color(hex: "999999")
+                                    : Color(hex: "FFFBFB")
                             )
                            
                     }
@@ -116,15 +121,17 @@ struct OnomaSelectView: View {
         }
     }
 
-    func pageView(for index: Int, category: String, items: [Onomatopoeia], grouped: [String: [Onomatopoeia]],
-                  loopedCategories: [String]) -> some View {
+    func pageView(for index: Int, category: String, items: [Onomatopoeia]) -> some View {
         
-        
-        // カテゴリ配列とグループはViewの外で定義済み
-        let prevIndex = index - 1
-        let nextIndex = index + 1
+        let grouped = Dictionary(grouping: loader.onomatopoeiaList) {
+            $0.category
+        }
 
-        // ループ対応なので必ずsafe
+        let categories = grouped.keys.sorted()
+        let loopedCategories =
+            [categories.last!] + categories + [categories.first!]
+        let prevIndex = index == 0 ? 0 : index - 1
+        let nextIndex = index == 9 ? 9 : index + 1
         let prevCategory = loopedCategories[prevIndex]
         let nextCategory = loopedCategories[nextIndex]
         let prevColor = Color(hex: (grouped[prevCategory]?.first?.colorHex ?? "CCCCCC"))
@@ -133,59 +140,61 @@ struct OnomaSelectView: View {
         let categoryColor = Color(hex: items.first?.colorHex ?? "FFFBFB")
 
         return VStack(spacing: 20) {
-            HStack {
-
-                VStack {
-                    Button {
-                        self.currentPage = index - 1
-                    } label: {
-                        Image(systemName: "arrow.left")
-                            .tint(Color(hex: "6E6869"))
-                            .padding(20)
+            ZStack{
+                HStack {
+                    VStack(alignment: .leading) {
+                        Button {
+                            self.currentPage = index - 1
+                        } label: {
+                            Image(systemName: "arrow.left")
+                                .tint(Color(hex: "6E6869"))
+                        }
+                        HStack {
+                            Circle()
+                                .fill(prevColor)
+                                .frame(width: 10, height: 10)
+                            Text(prevCategory)
+                                .font(.custom("ZenMaruGothic-Regular", size: 15))
+                                .foregroundColor(Color(hex: "6E6869"))
+                        }
                     }
-                    HStack {
-                        Circle()
-//                            .fill(prevColor)
-                            .frame(width: 10, height: 10)
-//                        Text(prevCategory)
-//                            .font(.custom("ZenMaruGothic-Regular", size: 20))
-//                            .foregroundColor(Color(hex: "6E6869"))
+                    
+                    
+                    Spacer()
+                    
+                    VStack(alignment: .trailing) {
+                        Button {
+                            self.currentPage = index + 1
+                        } label: {
+                            Image(systemName: "arrow.right")
+                                .tint(Color(hex: "6E6869"))
+                        }
+                        HStack {
+                            Text(nextCategory)
+                                .font(.custom("ZenMaruGothic-Regular", size: 15))
+                                .foregroundColor(Color(hex: "6E6869"))
+                            Circle()
+                                .fill(nextColor)
+                                .frame(width: 10, height: 10)
+                        }
                     }
+                    
                 }
-
-                Spacer()
-
+                .padding(.horizontal, 20)
+                
                 VStack(spacing: 0) {
                     Circle()
                         .fill(categoryColor)
                         .frame(width: 40, height: 40)
-                        .padding(.top, 30)
+                    
                     Text(category)
                         .font(.custom("ZenMaruGothic-Regular", size: 20))
                         .bold()
                         .foregroundColor(Color(hex: "6E6869"))
                 }
-
-                Spacer()
-
-                VStack {
-                    Button {
-                        self.currentPage = index + 1
-                    } label: {
-                        Image(systemName: "arrow.right")
-                            .tint(Color(hex: "6E6869"))
-                            .padding(20)
-                    }
-                    HStack {
-                        Circle()
-//                            .fill(nextColor)
-                            .frame(width: 10, height: 10)
-//                        Text(nextCategory)
-//                            .font(.custom("ZenMaruGothic-Regular", size: 20))
-//                            .foregroundColor(Color(hex: "6E6869"))
-                    }
-                }
+                .padding(.top, 30)
             }
+
             BubbleCategoryView(
                 selectedWord: $selectedWord,
                 selectedColor: $selectedColor,
@@ -194,7 +203,6 @@ struct OnomaSelectView: View {
             Spacer()
         }
         .tag(index)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(hex: "FFF9F9"))
     }
 
