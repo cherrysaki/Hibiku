@@ -11,6 +11,5 @@ struct BottomButtonStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(width: 70, height: 70)
-            .padding(.bottom, 10)
     }
 }

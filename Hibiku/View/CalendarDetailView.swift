@@ -43,8 +43,8 @@ struct CalendarDetailView: View {
                                 .frame(width: 40, height: 40)
                             
                             Text(entry.onomaWord)
-                                .font(.system(size: 15))
-                                .foregroundColor(.black)
+                                .font(.custom("ZenMaruGothic-Regular", size: 15))
+                                .foregroundColor(Color(hex: "6E6869"))
                         }
                         Text(entry.content)
                             .padding()

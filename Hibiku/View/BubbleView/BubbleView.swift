@@ -24,9 +24,9 @@ class BubbleView: UILabel {
         super.init(frame: .zero)
         self.text = word
         self.textAlignment = .center
-        self.font = UIFont.boldSystemFont(ofSize: 16)
+        self.font = UIFont(name: "ZenMaruGothic-Regular", size: 16)
         
-        self.textColor = .white
+        self.textColor = UIColor(hex: "6E6869")
         self.backgroundColor = displayColor
         
         self.clipsToBounds = true

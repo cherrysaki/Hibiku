@@ -23,10 +23,10 @@ struct OnomaCalendarView: View {
                 HStack(alignment: .bottom) {
                     VStack(alignment: .leading) {
                         Text("\(String(format: "%d", calendarController.yearMonth.year))")
-                            .font(.system(size: 15))
+                            .font(.custom("ZenMaruGothic-Regular", size: 15))
                             .foregroundColor(.gray)
                         Text("\(calendarController.yearMonth.month)")
-                            .font(.system(size: 40, weight: .bold))
+                            .font(.custom("ZenMaruGothic-Bold", size: 40))
                             .foregroundColor(.gray)
                     }
                     Spacer()
@@ -38,7 +38,7 @@ struct OnomaCalendarView: View {
                         ForEach(["月","火","水","木","金","土","日"], id: \.self) { day in
                             Text(day)
                                 .frame(maxWidth: .infinity)
-                                .font(.system(size: 14))
+                                .font(.custom("ZenMaruGothic-Regular", size: 15))
                                 .foregroundColor(.gray)
                         }
                     }
@@ -98,7 +98,7 @@ struct CalendarDateCellView: View {
     var body: some View {
         VStack(spacing: 10) {
             Text("\(date.day)")
-                .font(.system(size: 10, weight: .light))
+                .font(.custom("ZenMaruGothic-light", size: 15))
                 .opacity(date.isFocusYearMonth == true ? 1 : 0.3)
             
             if let color = color {

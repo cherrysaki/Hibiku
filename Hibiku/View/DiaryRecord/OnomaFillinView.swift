@@ -37,7 +37,7 @@ struct OnomaFillinView: View {
                             .foregroundColor(Color(color))
                             .frame(width: 40, height: 40)
                         Text(word)
-                            .font(.system(size: 15))
+                            .font(.custom("ZenMaruGothic-Regular", size: 15))
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .padding(.horizontal, 25)
@@ -53,8 +53,10 @@ struct OnomaFillinView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .foregroundColor(inputText.isEmpty ? Color(hex: "999999") : Color(hex: "FEA9AF"))
-                            .modifier(BottomButtonStyle())
+                            .frame(width: 70, height: 70)
                     }
+                    
+                    Spacer(minLength: 70)
 
                     NavigationLink(
                         destination: OnomaVoiceView(showOnomatope: $showOnomatope, selection: $selection, word: word, color: color, content: inputText),
@@ -94,6 +96,7 @@ struct PlaceholderTextEditor: View {
             if text.isEmpty {
                 Text(placeholder)
                     .foregroundColor(Color(hex: "999999"))
+                    .font(.custom("ZenMaruGothic-Regular", size: 15))
                     .padding(.top, 12)
                     .padding(.horizontal, 12)
                     .opacity(0.85)
