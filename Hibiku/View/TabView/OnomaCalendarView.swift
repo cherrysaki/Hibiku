@@ -19,19 +19,18 @@ struct OnomaCalendarView: View {
     var body: some View {
         NavigationStack{
             VStack(spacing: 12){
-                Spacer()
-                HStack(alignment: .bottom) {
+                HStack() {
                     VStack(alignment: .leading) {
                         Text("\(String(format: "%d", calendarController.yearMonth.year))")
                             .font(.custom("ZenMaruGothic-Regular", size: 15))
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color(hex: "6E6869"))
                         Text("\(calendarController.yearMonth.month)")
                             .font(.custom("ZenMaruGothic-Bold", size: 40))
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color(hex: "6E6869"))
                     }
                     Spacer()
                 }
-                .padding(.horizontal, 32)
+                .padding(.horizontal, 30)
                 
                 VStack(spacing: 12) {
                     HStack(spacing: 0) {

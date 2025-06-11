@@ -44,7 +44,7 @@ class BubbleView: UILabel {
             self.transform = self.isSelected
             ? CGAffineTransform(scaleX: 1.2, y: 1.2) : .identity
             self.backgroundColor = self.displayColor.withAlphaComponent(
-                self.isSelected ? 1.0 : 0.8
+                self.isSelected == true ? 1.0 : 0.8
             )
         }
     }

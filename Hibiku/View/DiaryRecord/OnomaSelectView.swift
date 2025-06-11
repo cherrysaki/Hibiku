@@ -43,35 +43,42 @@ struct OnomaSelectView: View {
                 Color(hex: "FFF9F9").ignoresSafeArea()
 
                 VStack(spacing: 0) {
+                    header()
+                        .animation(.default, value: currentPage)
                     TabView(selection: $currentPage) {
                         ForEach(0..<loopedCategories.count, id: \.self) {
                             index in
                             let category = loopedCategories[index]
                             let items = grouped[category] ?? []
-                            pageView(
-                                for: index,
-                                category: category,
+//                            pageView(
+//                                for: index,
+//                                category: category,
+//                                items: items
+//                            )
+                            BubbleCategoryView(
+                                selectedWord: $selectedWord,
+                                selectedColor: $selectedColor,
                                 items: items
                             )
-                            let _ = print(currentPage, index)
+                            .tag(index)
+                            .background(Color(hex: "FFF9F9"))
                         }
                     }
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                     Button {
-                        isNextActive = true
+                        withAnimation{
+                            isNextActive = true
+                        }
                     } label: {
                         Image(systemName: "arrow.forward.circle.fill")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 70, height: 70)
-                            .foregroundColor(
-                                (selectedWord != nil && selectedColor != nil)
-                                    ? Color(hex: "FEA9AF")
-                                    : Color(hex: "FFFBFB")
-                            )
+                            .foregroundColor(Color(hex:"FEA9AF"))
+                            .opacity(selectedColor != nil ? 1 : 0)
+                        //Opacityで管理するのがメジャー
                            
                     }
-                    .disabled(selectedWord == nil || selectedColor == nil)
 
                     Spacer(minLength: 70)
                 }
@@ -121,7 +128,7 @@ struct OnomaSelectView: View {
         }
     }
 
-    func pageView(for index: Int, category: String, items: [Onomatopoeia]) -> some View {
+    func header() -> some View {
         
         let grouped = Dictionary(grouping: loader.onomatopoeiaList) {
             $0.category
@@ -130,21 +137,23 @@ struct OnomaSelectView: View {
         let categories = grouped.keys.sorted()
         let loopedCategories =
             [categories.last!] + categories + [categories.first!]
-        let prevIndex = index == 0 ? 0 : index - 1
-        let nextIndex = index == 9 ? 9 : index + 1
+        let prevIndex = currentPage == 0 ? 0 : currentPage - 1
+        let nextIndex = currentPage == 9 ? 9 : currentPage + 1
         let prevCategory = loopedCategories[prevIndex]
         let nextCategory = loopedCategories[nextIndex]
         let prevColor = Color(hex: (grouped[prevCategory]?.first?.colorHex ?? "CCCCCC"))
         let nextColor = Color(hex: (grouped[nextCategory]?.first?.colorHex ?? "CCCCCC"))
         
+        let category = loopedCategories[currentPage]
+        let items = grouped[category] ?? []
         let categoryColor = Color(hex: items.first?.colorHex ?? "FFFBFB")
 
-        return VStack(spacing: 20) {
+        return
             ZStack{
                 HStack {
                     VStack(alignment: .leading) {
                         Button {
-                            self.currentPage = index - 1
+                            currentPage -= 1
                         } label: {
                             Image(systemName: "arrow.left")
                                 .tint(Color(hex: "6E6869"))
@@ -164,7 +173,7 @@ struct OnomaSelectView: View {
                     
                     VStack(alignment: .trailing) {
                         Button {
-                            self.currentPage = index + 1
+                            currentPage +=  1
                         } label: {
                             Image(systemName: "arrow.right")
                                 .tint(Color(hex: "6E6869"))
@@ -195,15 +204,8 @@ struct OnomaSelectView: View {
                 .padding(.top, 30)
             }
 
-            BubbleCategoryView(
-                selectedWord: $selectedWord,
-                selectedColor: $selectedColor,
-                items: items
-            )
-            Spacer()
+  
         }
-        .tag(index)
-        .background(Color(hex: "FFF9F9"))
     }
 
-}
+

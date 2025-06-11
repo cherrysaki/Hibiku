@@ -15,58 +15,59 @@ struct OnomaFillinView: View {
     
     @State private var isNextActive = false
     @State private var inputText: String = ""
-
+    
     var word: String
     var color: UIColor
-
+    
     var today: String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ja_JP")
         formatter.dateStyle = .long
         return formatter.string(from: Date())
     }
-
+    
     var body: some View {
         NavigationStack {
-//            ZStack {
-//                Color(hex: "FFFBFB").ignoresSafeArea()
-
-                VStack(spacing: 20) {
-                    HStack {
-                        Circle()
-                            .foregroundColor(Color(color))
-                            .frame(width: 40, height: 40)
-                        Text(word)
-                            .font(.custom("ZenMaruGothic-Regular", size: 15))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    .padding(.horizontal, 25)
-
-                    PlaceholderTextEditor(text: $inputText, placeholder: "どうして \(word) するのか書いてみよう")
-
-                    Button {
-                        if !inputText.isEmpty {
-                            isNextActive = true
-                        }
-                    } label: {
-                        Image(systemName: "arrow.forward.circle.fill")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .foregroundColor(inputText.isEmpty ? Color(hex: "999999") : Color(hex: "FEA9AF"))
-                            .frame(width: 70, height: 70)
-                    }
-                    
-                    Spacer(minLength: 50)
-
-                    NavigationLink(
-                        destination: OnomaVoiceView(showOnomatope: $showOnomatope, selection: $selection, word: word, color: color, content: inputText),
-                        isActive: $isNextActive
-                    ) {
-                        EmptyView()
-                    }
+            
+            VStack(spacing: 20) {
+                HStack {
+                    Circle()
+                        .foregroundColor(Color(color))
+                        .frame(width: 40, height: 40)
+                    Text(word)
+                        .font(.custom("ZenMaruGothic-Regular", size: 15))
+                        .foregroundColor(Color(hex: "6E6869"))
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .padding(.top, 20)
-//            }
+                .padding(.horizontal, 25)
+                
+                PlaceholderTextEditor(text: $inputText, placeholder: "どうして \(word) するのか書いてみよう")
+                
+                Spacer()
+                
+                Button {
+                    if !inputText.isEmpty {
+                        isNextActive = true
+                    }
+                } label: {
+                    Image(systemName: "arrow.forward.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(inputText.isEmpty ? Color(hex: "FFFBFB") : Color(hex: "FEA9AF"))
+                        .frame(width: 70, height: 70)
+                }
+                
+                Spacer(minLength: 50)
+                
+                NavigationLink(
+                    destination: OnomaVoiceView(showOnomatope: $showOnomatope, selection: $selection, word: word, color: color, content: inputText),
+                    isActive: $isNextActive
+                ) {
+                    EmptyView()
+                }
+            }
+            .padding(.top, 20)
+            .background(Color(hex: "FFFBFB"))
             .navigationBarBackButtonHidden(true)
             .navigationTitle(today)
             .navigationBarTitleDisplayMode(.inline)
@@ -86,13 +87,16 @@ struct OnomaFillinView: View {
 struct PlaceholderTextEditor: View {
     @Binding var text: String
     let placeholder: String
-
+    
     var body: some View {
         ZStack(alignment: .topLeading) {
             TextEditor(text: $text)
-                .padding(.horizontal, 8)
-                .background(Color.clear)
-
+                .textEditorStyle(.plain)
+                .foregroundColor(Color(hex: "6E6869"))
+                .font(.custom("ZenMaruGothic-Regular", size: 15))
+                .padding(.top, 8)
+                .padding(.horizontal, 12)
+            
             if text.isEmpty {
                 Text(placeholder)
                     .foregroundColor(Color(hex: "999999"))

@@ -10,7 +10,7 @@ import SwiftData
 import SwiftUI
 
 @Model
-final class Diary{
+final class Diary: Identifiable{
     var id: UUID
     var date: Date
     var onomaWord: String

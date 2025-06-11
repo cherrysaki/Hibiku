@@ -41,6 +41,7 @@ struct OnomaVoiceView: View {
             Spacer(minLength: 400)
             WaveformView(audioManager: manager)
                 .frame(height: 100)
+            Spacer()
             Button {
                 switch recordingState {
                 case .idle:
