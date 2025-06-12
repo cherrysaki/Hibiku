@@ -10,22 +10,27 @@ import SwiftUI
 struct WaveformView: View {
     
     @ObservedObject var audioManager: AudioRecorderManager
-
+    
     var body: some View {
-        GeometryReader { geometry in
+     GeometryReader { geometry in
             let height = geometry.size.height
             let width = geometry.size.width
             let data = audioManager.amplitudes
-            let step = max(1, data.count / Int(width))
+            let visibleCount = Int(width / 3)
+            let dataSuffix = Array(data.suffix(visibleCount))
 
-            HStack(spacing: 1) {
-                ForEach(data.indices.filter { $0 % step == 0 }, id: \.self) { index in
-                    let value = data[index]
-                    Rectangle()
-                        .fill(Color.blue)
-                        .frame(width: 2, height: CGFloat(value) * height)
-                }
-            }
+         HStack(spacing: 2) {
+             ForEach(dataSuffix.indices, id: \.self) { i in
+                 let value = dataSuffix[i]
+                 Rectangle()
+                     .fill(Color(hex: "6E6869"))
+                     .frame(width: 2, height: CGFloat(value) * height)
+             }
+         }
+         .frame(minWidth: width, maxWidth: .infinity, alignment: .trailing)
+
         }
+
     }
+
 }

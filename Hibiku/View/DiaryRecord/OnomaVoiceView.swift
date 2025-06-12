@@ -38,9 +38,10 @@ struct OnomaVoiceView: View {
 
     var body: some View {
         VStack {
-            Spacer(minLength: 400)
+            Spacer()
+            Spacer()
             WaveformView(audioManager: manager)
-                .frame(height: 100)
+                .frame(height: 200)
             Spacer()
             Button {
                 switch recordingState {
@@ -62,9 +63,8 @@ struct OnomaVoiceView: View {
                     .foregroundColor(Color(hex: "FEA9AF"))
             }
             .frame(width: 70, height: 70)
-            
-            Spacer(minLength: 70)
         }
+        .padding(.bottom, 70)
         .alert(isPresented: $showAlert) {
             Alert(title: Text(alertMessage))
         }

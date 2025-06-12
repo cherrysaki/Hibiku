@@ -8,40 +8,36 @@
 import SwiftUI
 
 struct OnomaSelectView: View {
-
+    
     //オノマトペを読み込む
     @ObservedObject var loader: OnomaLoader
-
+    
     //画面遷移を管理する変数
     @Binding var showOnomatope: Bool
     @Binding var selection: Int
     @Environment(\.dismiss) var dismiss
-
+    
     @State private var selectedWord: String? = nil
     @State private var selectedColor: UIColor? = nil
-
+    
     let pages = Array(0..<8)
     @State private var currentPage = 1
     @State private var isNextActive = false
     
-//    @State var index: Int = 0
-//    @State var category: String = ""
-//    @State var items: [Onomatopoeia] = []
-
     var body: some View {
-
+        
         let grouped = Dictionary(grouping: loader.onomatopoeiaList) {
             $0.category
         }
-
+        
         let categories = grouped.keys.sorted()
         let loopedCategories =
-            [categories.last!] + categories + [categories.first!]
-
+        [categories.last!] + categories + [categories.first!]
+        
         NavigationStack {
             ZStack {
                 Color(hex: "FFF9F9").ignoresSafeArea()
-
+                
                 VStack(spacing: 0) {
                     header()
                         .animation(.default, value: currentPage)
@@ -50,11 +46,6 @@ struct OnomaSelectView: View {
                             index in
                             let category = loopedCategories[index]
                             let items = grouped[category] ?? []
-//                            pageView(
-//                                for: index,
-//                                category: category,
-//                                items: items
-//                            )
                             BubbleCategoryView(
                                 selectedWord: $selectedWord,
                                 selectedColor: $selectedColor,
@@ -65,6 +56,7 @@ struct OnomaSelectView: View {
                         }
                     }
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                    Spacer()
                     Button {
                         withAnimation{
                             isNextActive = true
@@ -77,11 +69,10 @@ struct OnomaSelectView: View {
                             .foregroundColor(Color(hex:"FEA9AF"))
                             .opacity(selectedColor != nil ? 1 : 0)
                         //Opacityで管理するのがメジャー
-                           
+                        
                     }
-
-                    Spacer(minLength: 70)
                 }
+                .padding(.bottom, 70)
                 NavigationLink(
                     destination: Group {
                         if let word = selectedWord, let color = selectedColor {
@@ -99,7 +90,7 @@ struct OnomaSelectView: View {
                 ) {
                     EmptyView()
                 }
-
+                
                 .edgesIgnoringSafeArea(.bottom)
             }
             .navigationTitle("今の気持ちを選ぼう")
@@ -127,16 +118,16 @@ struct OnomaSelectView: View {
             }
         }
     }
-
+    
     func header() -> some View {
         
         let grouped = Dictionary(grouping: loader.onomatopoeiaList) {
             $0.category
         }
-
+        
         let categories = grouped.keys.sorted()
         let loopedCategories =
-            [categories.last!] + categories + [categories.first!]
+        [categories.last!] + categories + [categories.first!]
         let prevIndex = currentPage == 0 ? 0 : currentPage - 1
         let nextIndex = currentPage == 9 ? 9 : currentPage + 1
         let prevCategory = loopedCategories[prevIndex]
@@ -147,65 +138,65 @@ struct OnomaSelectView: View {
         let category = loopedCategories[currentPage]
         let items = grouped[category] ?? []
         let categoryColor = Color(hex: items.first?.colorHex ?? "FFFBFB")
-
+        
         return
-            ZStack{
-                HStack {
-                    VStack(alignment: .leading) {
-                        Button {
-                            currentPage -= 1
-                        } label: {
-                            Image(systemName: "arrow.left")
-                                .tint(Color(hex: "6E6869"))
-                        }
-                        HStack {
-                            Circle()
-                                .fill(prevColor)
-                                .frame(width: 10, height: 10)
-                            Text(prevCategory)
-                                .font(.custom("ZenMaruGothic-Regular", size: 15))
-                                .foregroundColor(Color(hex: "6E6869"))
-                        }
+        ZStack{
+            HStack {
+                VStack(alignment: .leading) {
+                    Button {
+                        currentPage -= 1
+                    } label: {
+                        Image(systemName: "arrow.left")
+                            .tint(Color(hex: "6E6869"))
                     }
-                    
-                    
-                    Spacer()
-                    
-                    VStack(alignment: .trailing) {
-                        Button {
-                            currentPage +=  1
-                        } label: {
-                            Image(systemName: "arrow.right")
-                                .tint(Color(hex: "6E6869"))
-                        }
-                        HStack {
-                            Text(nextCategory)
-                                .font(.custom("ZenMaruGothic-Regular", size: 15))
-                                .foregroundColor(Color(hex: "6E6869"))
-                            Circle()
-                                .fill(nextColor)
-                                .frame(width: 10, height: 10)
-                        }
+                    HStack {
+                        Circle()
+                            .fill(prevColor)
+                            .frame(width: 10, height: 10)
+                        Text(prevCategory)
+                            .font(.custom("ZenMaruGothic-Regular", size: 15))
+                            .foregroundColor(Color(hex: "6E6869"))
                     }
-                    
                 }
-                .padding(.horizontal, 20)
                 
-                VStack(spacing: 0) {
-                    Circle()
-                        .fill(categoryColor)
-                        .frame(width: 40, height: 40)
-                    
-                    Text(category)
-                        .font(.custom("ZenMaruGothic-Regular", size: 20))
-                        .bold()
-                        .foregroundColor(Color(hex: "6E6869"))
+                
+                Spacer()
+                
+                VStack(alignment: .trailing) {
+                    Button {
+                        currentPage +=  1
+                    } label: {
+                        Image(systemName: "arrow.right")
+                            .tint(Color(hex: "6E6869"))
+                    }
+                    HStack {
+                        Text(nextCategory)
+                            .font(.custom("ZenMaruGothic-Regular", size: 15))
+                            .foregroundColor(Color(hex: "6E6869"))
+                        Circle()
+                            .fill(nextColor)
+                            .frame(width: 10, height: 10)
+                    }
                 }
-                .padding(.top, 30)
+                
             }
-
-  
+            .padding(.horizontal, 20)
+            
+            VStack(spacing: 0) {
+                Circle()
+                    .fill(categoryColor)
+                    .frame(width: 40, height: 40)
+                
+                Text(category)
+                    .font(.custom("ZenMaruGothic-Regular", size: 20))
+                    .bold()
+                    .foregroundColor(Color(hex: "6E6869"))
+            }
+            .padding(.top, 30)
         }
+        
+        
     }
+}
 
 

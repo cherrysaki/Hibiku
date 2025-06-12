@@ -29,7 +29,7 @@ struct OnomaFillinView: View {
     var body: some View {
         NavigationStack {
             
-            VStack(spacing: 20) {
+            VStack() {
                 HStack {
                     Circle()
                         .foregroundColor(Color(color))
@@ -40,9 +40,11 @@ struct OnomaFillinView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .padding(.horizontal, 25)
+                .padding(.top, 20)
                 
                 PlaceholderTextEditor(text: $inputText, placeholder: "どうして \(word) するのか書いてみよう")
                 
+                Spacer()
                 Spacer()
                 
                 Button {
@@ -57,8 +59,6 @@ struct OnomaFillinView: View {
                         .frame(width: 70, height: 70)
                 }
                 
-                Spacer(minLength: 50)
-                
                 NavigationLink(
                     destination: OnomaVoiceView(showOnomatope: $showOnomatope, selection: $selection, word: word, color: color, content: inputText),
                     isActive: $isNextActive
@@ -66,7 +66,7 @@ struct OnomaFillinView: View {
                     EmptyView()
                 }
             }
-            .padding(.top, 20)
+            .padding(.bottom, 70)
             .background(Color(hex: "FFFBFB"))
             .navigationBarBackButtonHidden(true)
             .navigationTitle(today)
