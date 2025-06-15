@@ -42,7 +42,7 @@ struct AnalysisView: View {
                         Spacer()
                     }
                 }
-
+                
                 ScrollView {
                     VStack(spacing: 0) {
                         ForEach(entries, id: \.id) { entry in
@@ -104,7 +104,13 @@ struct WaveView: View {
     
     var body: some View {
         WaveformShape(waveform: waveform)
-            .fill(color)
+            .fill(
+                LinearGradient(
+                    gradient: Gradient(colors: [color.opacity(0.6), color]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
             .frame(height: CGFloat(waveform.count) * 5) // 例：1要素あたり4ptの高さ
         
     }
