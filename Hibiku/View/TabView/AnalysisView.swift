@@ -31,16 +31,15 @@ struct AnalysisView: View {
         
         NavigationStack {
             ZStack(alignment: .topLeading){
+                Color(hex: "FFFBFB").ignoresSafeArea()
                 if entries.isEmpty {
-                    VStack {
-                        Spacer()
                         Text("表示するデータがありません")
-                            .font(.custom("ZenMaruGothic-Regular", size: 32))
+                            .font(.custom("ZenMaruGothic-Regular", size: 15))
                             .foregroundColor(Color(hex: "6E6869"))
                             .multilineTextAlignment(.center)
                             .padding()
-                        Spacer()
-                    }
+                            .frame(maxWidth: .infinity, maxHeight: .infinity,alignment: .center)
+
                 }
                 
                 ScrollView {
@@ -88,7 +87,6 @@ struct AnalysisView: View {
                     .padding(.leading, 32)
                     .padding(.top, 20)
             }
-            .background(Color(hex: "FFFBFB"))
             .navigationTitle("分析")
             .navigationBarTitleDisplayMode(.inline)
         }
