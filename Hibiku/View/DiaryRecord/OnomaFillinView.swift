@@ -28,45 +28,60 @@ struct OnomaFillinView: View {
     
     var body: some View {
         NavigationStack {
-            
-            VStack() {
-                HStack {
-                    Circle()
-                        .foregroundColor(Color(color))
-                        .frame(width: 40, height: 40)
-                    Text(word)
-                        .font(.custom("ZenMaruGothic-Regular", size: 15))
-                        .foregroundColor(Color(hex: "6E6869"))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                .padding(.horizontal, 25)
-                .padding(.top, 20)
-                
-                PlaceholderTextEditor(text: $inputText, placeholder: "どうして \(word) するのか書いてみよう")
-                
-                Spacer()
-                Spacer()
-                
-                Button {
-                    if !inputText.isEmpty {
-                        isNextActive = true
+            ZStack(alignment: .bottom) {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 20) {
+                        HStack {
+                            Circle()
+                                .foregroundColor(Color(color))
+                                .frame(width: 40, height: 40)
+                            Text(word)
+                                .font(.custom("ZenMaruGothic-Regular", size: 15))
+                                .foregroundColor(Color(hex: "6E6869"))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .padding(.horizontal, 25)
+                        .padding(.top, 20)
+                        
+                        PlaceholderTextEditor(
+                            text: $inputText,
+                            placeholder: "どうして \(word) するのか書いてみよう"
+                        )
+                        
+                        Spacer(minLength: 200)
                     }
-                } label: {
-                    Image(systemName: "arrow.forward.circle.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(inputText.isEmpty ? Color(hex: "FFFBFB") : Color(hex: "FEA9AF"))
-                        .frame(width: 70, height: 70)
+                    .background(Color(hex: "FFFBFB"))
                 }
+                .ignoresSafeArea(edges: [.bottom])
                 
-                NavigationLink(
-                    destination: OnomaVoiceView(showOnomatope: $showOnomatope, selection: $selection, word: word, color: color, content: inputText),
-                    isActive: $isNextActive
-                ) {
-                    EmptyView()
+                VStack {
+                    Button {
+                        if !inputText.isEmpty {
+                            isNextActive = true
+                        }
+                    } label: {
+                        Image(systemName: "arrow.forward.circle.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(inputText.isEmpty ? Color(hex: "FFFBFB") : Color(hex: "FEA9AF"))
+                            .frame(width: 70, height: 70)
+                    }
+                    
+                    NavigationLink(
+                        destination: OnomaVoiceView(
+                            showOnomatope: $showOnomatope,
+                            selection: $selection,
+                            word: word,
+                            color: color,
+                            content: inputText
+                        ),
+                        isActive: $isNextActive
+                    ) {
+                        EmptyView()
+                    }
                 }
+                .padding(.bottom, 70)
             }
-            .padding(.bottom, 70)
             .background(Color(hex: "FFFBFB"))
             .navigationBarBackButtonHidden(true)
             .navigationTitle(today)
@@ -83,6 +98,7 @@ struct OnomaFillinView: View {
             }
         }
     }
+    
 }
 struct PlaceholderTextEditor: View {
     @Binding var text: String
